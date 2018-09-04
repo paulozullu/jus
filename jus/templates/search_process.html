@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Busca processo
+{% endblock %}
+{% block content %}
+<section id="content">
+    <form action="/search_process/" method="post" class="pure-form">
+        <fieldset>
+            <legend>Busca de Processos</legend>
+            {% csrf_token %}
+            <select name="tribunal">
+                <option value="tjms">TJMS</option>
+                <option value="tjsp">TJSP</option>
+            </select>
+            <input id="num_processo" type="text" name="num_processo" placeholder="Número de processo">
+            <button type="submit" class="pure-button pure-button-primary">Buscar</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock content %}
+
