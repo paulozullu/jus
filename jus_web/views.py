@@ -26,12 +26,12 @@ def search_process(request):
     start_crawl(process_number, court)
 
     process = db.processes.find_one({
-        'process_number': process_number
+        'process_number': process_number,
+        'court': court
     })
 
     context = {
         'process': process,
-        'court': court
     }
 
     return render(request, 'process_result.html', context)

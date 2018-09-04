@@ -56,7 +56,8 @@ class JusCrawlerPipeline(object):
 
         if valid:
             self.db[self.collection_name].replace_one({
-                'process_number': item['process_number']
+                'process_number': item['process_number'],
+                'court': item['court']
             },
                 dict(item),
                 True)

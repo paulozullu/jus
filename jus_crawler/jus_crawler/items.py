@@ -11,6 +11,7 @@ from scrapy import Field
 
 class ProcessItem(scrapy.Item):
     process_number = Field()
+    court = Field()
     class_ = Field()
     area = Field()
     subject = Field()

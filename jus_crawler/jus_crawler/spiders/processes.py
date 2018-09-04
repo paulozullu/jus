@@ -29,6 +29,7 @@ class ProcessesSpider(scrapy.Spider):
 
         request = scrapy.Request(url=url, callback=self.parse)
         request.meta['process_number'] = process_number
+        request.meta['court'] = court
 
         yield request
 
@@ -41,6 +42,7 @@ class ProcessesSpider(scrapy.Spider):
             callback=self.get_process_info
         )
         request.meta['process_number'] = process_number
+        request.meta['court'] = response.meta['court']
 
         yield request
 
@@ -75,6 +77,7 @@ class ProcessesSpider(scrapy.Spider):
 
         item = ProcessItem()
         item['process_number'] = response.meta["process_number"]
+        item['court'] = response.meta['court']
         item['area'] = area
         item['class_'] = classe
         item['subject'] = assunto
