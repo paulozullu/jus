@@ -6,36 +6,15 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-import pymongo
-from scrapy import log
 from scrapy.exceptions import DropItem
 
-from settings import MONGO_URI, MONGO_DATABASE
+try:
+    from jus_crawler.jus_crawler.items import InMemoryItemStore
+except ImportError:
+    from jus_crawler.items import InMemoryItemStore
 
 
 class JusCrawlerPipeline(object):
-    collection_name = 'processes'
-
-    def __init__(self, mongo_uri, mongo_db):
-        self.mongo_uri = mongo_uri
-        self.mongo_db = mongo_db
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        """
-        Pull in information from settings.py.
-        """
-        return cls(
-            mongo_uri=MONGO_URI,
-            mongo_db=MONGO_DATABASE
-        )
-
-    def open_spider(self, spider):
-        """
-        Initializes spider and open db connection.
-        """
-        self.client = pymongo.MongoClient(self.mongo_uri)
-        self.db = self.client[self.mongo_db]
 
     def close_spider(self, spider):
         """
@@ -55,13 +34,4 @@ class JusCrawlerPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
 
         if valid:
-            self.db[self.collection_name].replace_one({
-                'process_number': item['process_number'],
-                'court': item['court']
-            },
-                dict(item),
-                True)
-            log.msg("Process added to MongoDB database!",
-                    level=log.DEBUG, spider=spider)
-        return item
-
+            return item

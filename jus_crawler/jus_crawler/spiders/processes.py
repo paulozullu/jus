@@ -2,25 +2,36 @@
 import scrapy
 from scrapy import Selector
 
-from jus_crawler.jus_crawler.items import ProcessItem
+try:
+    from jus_crawler.jus_crawler.items import ProcessItem
+except ImportError:
+    from jus_crawler.items import ProcessItem
 
 
 class ProcessesSpider(scrapy.Spider):
     name = 'processes'
 
+    process_number = None
+    court = None
+
     custom_settings = {
         'ITEM_PIPELINES': {
-            'jus_crawler.jus_crawler.pipelines.JusCrawlerPipeline': 300
+            'jus_crawler.pipelines.JusCrawlerPipeline': 100
         }
     }
+
+    def __init__(self, meta=None, *args, **kwargs):
+        super(ProcessesSpider, self).__init__(*args, **kwargs)
+        self.process_number = meta['process_number']
+        self.court = meta['court']
 
     def start_requests(self):
         self.start_urls = [
             'https://esaj.tjsp.jus.br/cpopg/open.do',
             'https://www.tjms.jus.br/cpopg5/open.do'
         ]
-        process_number = getattr(self, 'process_number', None)
-        court = getattr(self, 'court', None)
+        process_number = self.process_number
+        court = self.court
 
         if court == 'tjsp':
             url = self.start_urls[0]
@@ -89,7 +100,7 @@ class ProcessesSpider(scrapy.Spider):
 
         # open_in_browser(response)
 
-        return item
+        yield item
 
 
 def getSingleElement(xpath, param, sel):
@@ -173,4 +184,3 @@ def getHistory(sel):
         })
 
     return result_list
-
