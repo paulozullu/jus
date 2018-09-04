@@ -49,9 +49,8 @@ To install this project, plese follow steps below:
 - Plasma 5.13.4
 
 ### Development IDE:
-PyCharm 2018.2.2 (Community Edition)
-Build #PC-182.4129.34, built on August 21, 2018
-JRE: 1.8.0_152-release-1248-b8 amd64
-JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
-Linux 4.15.0-33-generic
-
+- PyCharm 2018.2.2 (Community Edition)
+- Build #PC-182.4129.34, built on August 21, 2018
+- JRE: 1.8.0_152-release-1248-b8 amd64
+- JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+- Linux 4.15.0-33-generic
