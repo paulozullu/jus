@@ -34,7 +34,7 @@ def search_process(request):
         'court': court
     }
 
-    return render(request, 'process.html', context)
+    return render(request, 'process_result.html', context)
 
 
 def start_crawl(process_number, court):

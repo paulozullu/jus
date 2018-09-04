@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Processo n. {{ process.process_number }} do {{ court | upper}}</h1>
+<div class="pure-g">
+    <div class="pure-u-1-6">Classe: </div>
+    <div class="pure-u-1-6">{{ process.class_ }}</div>
+</div>
+<div class="pure-g">
+        <div class="pure-u-1-6">Área: </div>
+        <div class="pure-u-1-6">{{ process.area }}</div>
+</div>
+<div class="pure-g">
+        <div class="pure-u-1-6">Assunto: </div>
+        <div class="pure-u-1-6">{{ process.subject }}</div>
+</div>
+<div class="pure-g">
+        <div class="pure-u-1-6">Data de distribuição: </div>
+        <div class="pure-u-1-6">{{ process.distribution_date }}</div>
+</div>
+<div class="pure-g">
+        <div class="pure-u-1-6">Juíz: </div>
+        <div class="pure-u-1-6">{{ process.judge }}</div>
+</div>
+<div class="pure-g">
+        <div class="pure-u-1-6">Valor da Ação: </div>
+        <div class="pure-u-1-6">{{ process.value }}</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1-1">
+        <table class="pure-table">
+            <caption><strong>Partes envolvidas</strong></caption>
+            <tbody>
+                {% cycle '' 'pure-table-odd' as rowcolors silent %}
+                {% resetcycle rowcolors %}
+                {% for part in process.parts %}
+                    {% cycle rowcolors %}
+                    <tr class="{{ rowcolors }}">
+                        <td>{{ part.applicant }}</td>
+                        <td>
+                            {% for applicant in part.applicant_parts %}
+                                - {{ applicant }} <br/>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1-1">
+        <table class="pure-table">
+            <caption><strong>Movimentações</strong></caption>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Movimentação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% cycle '' 'pure-table-odd' as rowcolors silent %}
+                {% resetcycle rowcolors %}
+                {% for change in process.changes %}
+                    {% cycle rowcolors %}
+                    <tr class="{{ rowcolors }}">
+                        <td>{{ change.data }}</td>
+                        <td>{{ change.move }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

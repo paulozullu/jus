@@ -8,11 +8,11 @@ Busca processo
         <fieldset>
             <legend>Busca de Processos</legend>
             {% csrf_token %}
-            <select name="tribunal">
+            <select id="id_court" name="court">
                 <option value="tjms">TJMS</option>
                 <option value="tjsp">TJSP</option>
             </select>
-            <input id="num_processo" type="text" name="num_processo" placeholder="Número de processo">
+            <input id="id_process_number" type="text" name="process_number" placeholder="Número de processo">
             <button type="submit" class="pure-button pure-button-primary">Buscar</button>
         </fieldset>
     </form>
