@@ -14,6 +14,8 @@ BOT_NAME = 'jus_crawler'
 SPIDER_MODULES = ['jus_crawler.spiders']
 NEWSPIDER_MODULE = 'jus_crawler.spiders'
 
+MONGO_URI = 'mongodb://localhost:27017'
+MONGO_DATABASE = 'jusbrasil_test'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'jus_crawler_ (+http://www.yourdomain.com)'
