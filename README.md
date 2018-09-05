@@ -16,7 +16,7 @@ To install this project, plese follow steps below:
     git clone https://github.com/paulozullu/jus.git
     ```
     
-3. Inside the created folder (**jus**), run the command above to create the virtual environment
+3. Inside the created folder (**jus**), run the command below to create the virtual environment
     ```
     virtualenv envname
     ```
@@ -30,11 +30,30 @@ To install this project, plese follow steps below:
    ```
    pip install -r requirements.txt
    ```
-   
- 6. Run! (:
-    ```
-    python manage.py runserver
-    ```
+ 
+ 6. Edit the lib scrapyrt to allow send parameters to the spider via POST requests. [Issue link](https://github.com/scrapinghub/scrapyrt/issues/29)
+ - Access your scrapyrt installation  folder:
+ ```
+ $ cd envname/lib/python2.7/site-packages/scrapyrt/
+ ```
+ - Open the file ```resources.py``` and add the lines below before ```dfd = self.run_crawl```:
+ ```
+crawler_params = api_params.copy()
+for api_param in ['max_requests', 'start_requests', 'spider_name', 'url']:
+    crawler_params.pop(api_param, None)
+kwargs.update(crawler_params)
+ ```   
+ 
+ 7. Run! (:
+- Access the project root folder and run:
+```
+$ python manage.py runserver
+```
+- Access the folder jus_crawler inside the root folder and run:
+```
+$ scrapyrt
+```
+- Go to you preferred web browser and point to [localhost](http://localhost:8000)
 
 ## Work Environment
 
