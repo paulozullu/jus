@@ -9,7 +9,8 @@ from django.shortcuts import render
 
 def search_process(request):
     """
-    Get and send the data.
+    Get user input, send the data to scrapyrt and retrieve scraped
+    item at scrapyrt response.
     """
     process_number = request.POST.get('process_number', '').strip()
     court = request.POST.get('court', '').strip()
@@ -31,4 +32,3 @@ def search_process(request):
     }
 
     return render(request, 'process_result.html', context)
-
